@@ -49,5 +49,7 @@ private:
     Ui::MainWindow *ui;
     Date* date1;
     Date* date2;
+    bool format1;
+    bool format2;
 };
 #endif // MAINWINDOW_H

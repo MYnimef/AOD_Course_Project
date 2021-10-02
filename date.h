@@ -7,15 +7,15 @@ class Date
 {
 private:
     bool isDate;
-    int day;
-    int month;
-    int year;
+    short day;
+    short month;
+    short year;
     QString dayStr;
     QString monthStr;
     QString yearStr;
     QString dayOfWeek;
 
-    int findSymb(QString str, int pos);
+    int findSymb(QString str, short pos);
     bool checkDate();
     void correctDate(int correction);
 public:

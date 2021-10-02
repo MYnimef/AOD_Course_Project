@@ -16,19 +16,19 @@ void Date::buildDate(QString str)
 
     int index = findSymb(str, 0);
     this->dayStr = str.left(index);
-    this->day = this->dayStr.toInt(&isDate);
+    this->day = this->dayStr.toShort(&isDate);
 
     index++;
     int index2 = findSymb(str, index);
     this->monthStr = str.mid(index, index2 - index);
-    this->month = this->monthStr.toInt(&isDate);
+    this->month = this->monthStr.toShort(&isDate);
 
     this->yearStr = str.right(str.length() - index2 - 1);
     if (this->yearStr.length() == 2)
     {
         this->yearStr = "20" + yearStr;
     }
-    this->year = this->yearStr.toInt(&isDate);
+    this->year = this->yearStr.toShort(&isDate);
 
     this->isDate = checkDate();
     if (isDate)
@@ -39,147 +39,29 @@ void Date::buildDate(QString str)
 
 void Date:: setDayOfWeek()
 {
-    /*
     QString week[] = {"Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"};
 
-    int d = day;
-    int m = month - 2;
-    int y;
-    if (m <= 0)
-    {
-        y = year - 1;
-        m += 12;
-    }
-    else
-    {
-        y = year;
-    }
-    int c = y / 100;
-    y %= 100;
-
-    int num = (int) (int(2.6*m - 0.2) + d + 1.25*y - 1.75*c) % 7;
-    if (num < 0)
-    {
-        num += 7;
-    }
-    */
-
-    /*
-    QString week[] = {"Суббота", "Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница"};
-
-    int d = day;
-    int m = month;
-    int y;
-    if (m <= 2)
-    {
-        m += 2;
-        y = year - 1;
-    }
-    else
-    {
-        y = year;
-    }
-    int c = y / 100;
-    y %= 100;
-
-    int num = (int) (13 * (m + 1) / 5 + y / 4 + c / 4 + d + y - 2*c) % 7;
-    if (num < 0)
-    {
-        num += 7;
-    }
-    */
-
-    QString week[] = {"Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"};
-
-    int a = (14 - month) / 12;
-    int y = year - a;
-    int m = month + 12 * a - 2;
-    int num = (7000 + (day + y + y / 4 - y / 100 + y / 400 + (31 * m) / 12)) % 7;
+    short a = (14 - month) / 12;
+    short y = year - a;
+    short m = month + 12 * a - 2;
+    short num = (7000 + (day + y + y / 4 - y / 100 + y / 400 + (31 * m) / 12)) % 7;
 
     this->dayOfWeek = week[num];
 }
 
 bool Date::checkDate()
 {
-    switch(month) {
-    case 1:
-        if (day <= 31) {
-            break;
-        }
-        return false;
-    case 2:
-        if (year % 4 == 0) {
-            if (day <= 29) {
-                break;
-            }
-        } else {
-            if (day <= 28) {
-                break;
-            }
-        }
-        return false;
-    case 3:
-        if (day <= 31) {
-            break;
-        }
-        return false;
-    case 4:
-        if (day <= 30) {
-            break;
-        }
-        return false;
-    case 5:
-        if (day <= 31) {
-            break;
-        }
-        return false;
-    case 6:
-        if (day <= 30) {
-            break;
-        }
-        return false;
-    case 7:
-        if (day <= 31) {
-            break;
-        }
-        return false;
-    case 8:
-        if (day <= 31) {
-            break;
-        }
-        return false;
-    case 9:
-        if (day <= 30) {
-            break;
-        }
-        return false;
-    case 10:
-        if (day <= 31) {
-            break;
-        }
-        return false;
-    case 11:
-        if (day <= 30) {
-            break;
-        }
-        return false;
-    case 12:
-        if (day <= 31) {
-            break;
-        }
-        return false;
-    default:
-        return false;
-    }
+    short februaryDays = year % 4 ? 29 : 28;
+    short monthDays[] = {31, februaryDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    if (day < 0) {
-        return false;
+    if (day <= monthDays[month] && day > 0)
+    {
+        return true;
     }
-
-    return true;
+    return false;
 }
 
-int Date::findSymb(QString str, int pos)
+int Date::findSymb(QString str, short pos)
 {
     int index1 = str.indexOf('.', pos);
     int index2 = str.indexOf('/', pos);

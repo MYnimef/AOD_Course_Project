@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     date1 = new Date();
     date2 = new Date();
+    format1 = true;
+    format2 = true;
 }
 
 MainWindow::~MainWindow()
@@ -19,7 +21,14 @@ MainWindow::~MainWindow()
 void MainWindow::on_dateInput1_clicked()
 {
     date1->buildDate(ui->dateEdit1->toPlainText());
-    ui->dateLabel1->setText(date1->toDefaultString());
+    if (format1)
+    {
+        ui->dateLabel1->setText(date1->toDefaultString());
+    }
+    else
+    {
+        ui->dateLabel1->setText(date1->toAmericanString());
+    }
 
     if (date1->getIsDate())
     {
@@ -43,7 +52,14 @@ void MainWindow::on_dateInput1_clicked()
 void MainWindow::on_dateInput2_clicked()
 {
     date2->buildDate(ui->dateEdit2->toPlainText());
-    ui->dateLabel2->setText(date2->toDefaultString());
+    if (format2)
+    {
+        ui->dateLabel2->setText(date2->toDefaultString());
+    }
+    else
+    {
+        ui->dateLabel2->setText(date2->toAmericanString());
+    }
 
     if (date2->getIsDate())
     {
@@ -93,25 +109,41 @@ void MainWindow::on_decrementDate2_clicked()
 
 void MainWindow::on_defaultFormat1_clicked()
 {
-
+    if(!format1)
+    {
+        format1 = true;
+        ui->dateLabel1->setText(date1->toDefaultString());
+    }
 }
 
 
 void MainWindow::on_americanFromat1_clicked()
 {
-
+    if(format1)
+    {
+        format1 = false;
+        ui->dateLabel1->setText(date1->toAmericanString());
+    }
 }
 
 
 void MainWindow::on_defaultFormat2_clicked()
 {
-
+    if(!format2)
+    {
+        format2 = true;
+        ui->dateLabel2->setText(date2->toDefaultString());
+    }
 }
 
 
 void MainWindow::on_americanFormat2_clicked()
 {
-
+    if(format2)
+    {
+        format2 = false;
+        ui->dateLabel2->setText(date2->toAmericanString());
+    }
 }
 
 
