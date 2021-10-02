@@ -21,6 +21,14 @@ private slots:
 
     void on_dateInput2_clicked();
 
+    void on_incrementDate1_clicked();
+
+    void on_decrementDate1_clicked();
+
+    void on_incrementDate2_clicked();
+
+    void on_decrementDate2_clicked();
+
 private:
     Ui::MainWindow *ui;
     Date* date1;
