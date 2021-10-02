@@ -31,6 +31,55 @@ void Date::buildDate(QString str)
     this->year = this->yearStr.toInt(&isDate);
 
     this->isDate = checkDate();
+    if (isDate)
+    {
+        setDayOfWeek();
+    }
+}
+
+void Date:: setDayOfWeek()
+{
+    int d = day;
+    int m = month - 2;
+    int y;
+    if (m <= 0)
+    {
+        y = year - 1;
+        m += 12;
+    }
+    else
+    {
+        y = year;
+    }
+    int c = y / 100 + 1;
+
+    double X = abs(ceil(2.6*m - 0.2) + 1.*d + 1.25*y - 1.75*c);
+    int num = (int) X % 7;
+
+    switch(num)
+    {
+    case 0:
+        dayOfWeek = "Воскресенье";
+        break;
+    case 1:
+        dayOfWeek = "Понедельник";
+        break;
+    case 2:
+        dayOfWeek = "Вторник";
+        break;
+    case 3:
+        dayOfWeek = "Среда";
+        break;
+    case 4:
+        dayOfWeek = "Четверг";
+        break;
+    case 5:
+        dayOfWeek = "Пятница";
+        break;
+    case 6:
+        dayOfWeek = "Суббота";
+        break;
+    }
 }
 
 bool Date::checkDate()
@@ -118,6 +167,7 @@ int Date::findSymb(QString str, int pos)
     int index1 = str.indexOf('.', pos);
     int index2 = str.indexOf('/', pos);
     int index3 = str.indexOf(' ', pos);
+    int index4 = str.indexOf('-', pos);
 
     if (index1 != -1) {
         return index1;
@@ -128,6 +178,9 @@ int Date::findSymb(QString str, int pos)
     else if (index3 != -1) {
         return index3;
     }
+    else if (index4 != -1) {
+        return index4;
+    }
 
     return -1;
     this->isDate = false;
@@ -137,7 +190,7 @@ QString Date::toDefaultString()
 {
     if (isDate)
     {
-        return dayStr + "." + monthStr + "." + yearStr;
+        return dayStr + "." + monthStr + "." + yearStr + ", " + dayOfWeek;
     }
     return "Wrong date format!";
 }
@@ -146,7 +199,7 @@ QString Date::toAmericanString()
 {
     if (isDate)
     {
-        return monthStr + "." + dayStr + "." + yearStr;
+        return monthStr + "." + dayStr + "." + yearStr + ", " + dayOfWeek;
     }
     return "Wrong date format!";
 }
@@ -185,6 +238,7 @@ void Date::updateStrings()
     {
         yearStr = "0" + yearStr;
     }
+    setDayOfWeek();
 }
 
 void Date::correctDate(int correction)

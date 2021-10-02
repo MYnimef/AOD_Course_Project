@@ -13,6 +13,7 @@ private:
     QString dayStr;
     QString monthStr;
     QString yearStr;
+    QString dayOfWeek;
 
     int findSymb(QString str, int pos);
     bool checkDate();
@@ -21,6 +22,7 @@ public:
     Date();
     Date(QString date);
     void buildDate(QString date);
+    void setDayOfWeek();
     QString toDefaultString();
     QString toAmericanString();
     bool getIsDate();

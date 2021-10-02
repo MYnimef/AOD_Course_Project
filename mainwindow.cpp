@@ -25,11 +25,17 @@ void MainWindow::on_dateInput1_clicked()
     {
         ui->incrementDate1->setEnabled(true);
         ui->decrementDate1->setEnabled(true);
+
+        ui->defaultFormat1->setEnabled(true);
+        ui->americanFromat1->setEnabled(true);
     }
     else
     {
         ui->incrementDate1->setEnabled(false);
         ui->decrementDate1->setEnabled(false);
+
+        ui->defaultFormat1->setEnabled(false);
+        ui->americanFromat1->setEnabled(false);
     }
 }
 
@@ -43,11 +49,17 @@ void MainWindow::on_dateInput2_clicked()
     {
         ui->incrementDate2->setEnabled(true);
         ui->decrementDate2->setEnabled(true);
+
+        ui->defaultFormat2->setEnabled(true);
+        ui->americanFormat2->setEnabled(true);
     }
     else
     {
         ui->incrementDate2->setEnabled(false);
         ui->decrementDate2->setEnabled(false);
+
+        ui->defaultFormat2->setEnabled(false);
+        ui->americanFormat2->setEnabled(false);
     }
 }
 
@@ -76,5 +88,53 @@ void MainWindow::on_decrementDate2_clicked()
 {
     date2->decrement();
     ui->dateLabel2->setText(date2->toDefaultString());
+}
+
+
+void MainWindow::on_defaultFormat1_clicked()
+{
+
+}
+
+
+void MainWindow::on_americanFromat1_clicked()
+{
+
+}
+
+
+void MainWindow::on_defaultFormat2_clicked()
+{
+
+}
+
+
+void MainWindow::on_americanFormat2_clicked()
+{
+
+}
+
+
+void MainWindow::on_increaseDate1_clicked()
+{
+
+}
+
+
+void MainWindow::on_decreaseDate1_clicked()
+{
+
+}
+
+
+void MainWindow::on_increaseDate2_clicked()
+{
+
+}
+
+
+void MainWindow::on_decreaseDate2_clicked()
+{
+
 }
 
