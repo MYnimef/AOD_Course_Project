@@ -50,8 +50,10 @@ bool Date::checkDate()
     short februaryDays = year % 4 == 0 ? 29 : 28;
     short monthDays[] = {31, februaryDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    if (day <= monthDays[month - 1] && day > 0)
-        return true;
+    if (year > 0)
+        if (month >= 1 && month <= 12)
+            if (day <= monthDays[month - 1] && day >= 1)
+                return true;
     return false;
 }
 
