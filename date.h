@@ -17,6 +17,7 @@ private:
     void correctDate(int correction);
     void getStrings(QString &dayStr, QString &monthStr, QString &yearStr);
     bool checkCorrection(int &correct, int amountOfDays, int amountOfDaysOld);
+    int rdn();
 
 public:
     Date();

@@ -229,5 +229,29 @@ short Date::getYear()
 
 QString Date::dayDifference(Date date)
 {
+    QString numStr = QString::number(abs(rdn() - date.rdn()));
+    int length = numStr.length() - 1;
+    QString word;
+    if (numStr.lastIndexOf("11") != length && numStr.lastIndexOf("1") == length)
+        word = " день";
+    else if ((numStr.lastIndexOf("12") != length && numStr.lastIndexOf("2") == length) ||
+             (numStr.lastIndexOf("13") != length && numStr.lastIndexOf("3") == length) ||
+             (numStr.lastIndexOf("14") != length && numStr.lastIndexOf("4") == length))
+        word = " дня";
+    else
+        word = " дней";
 
+    return "Разница между двумя датами составляет " + numStr + word;
+}
+
+int Date::rdn()
+{
+    int d = day;
+    int m = month;
+    int y = year;
+
+    if (m < 3)
+        y--, m += 12;
+
+    return 365*y + y/4 - y/100 + y/400 + (153*m - 457)/5 + d - 306;
 }
