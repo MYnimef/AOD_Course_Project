@@ -21,6 +21,9 @@ private:
 public:
     Date();
     Date(QString date);
+    short getDay();
+    short getMonth();
+    short getYear();
     void buildDate(QString date);
     void setDayOfWeek();
     QString toDefaultString();
@@ -29,6 +32,7 @@ public:
     void increment();
     void decrement();
     void change(int numOfDays);
+    QString dayDifference(Date date);
 };
 
 #endif

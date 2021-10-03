@@ -200,3 +200,32 @@ bool Date::checkCorrection(int &correct, int amountOfDays, int amountOfDaysOld)
         return true;
     }
 }
+
+short Date::getDay()
+{
+    if (isDate)
+        return day;
+    else
+        return -1;
+}
+
+short Date::getMonth()
+{
+    if (isDate)
+        return month;
+    else
+        return -1;
+}
+
+short Date::getYear()
+{
+    if (isDate)
+        return year;
+    else
+        return -1;
+}
+
+QString Date::dayDifference(Date date)
+{
+
+}
