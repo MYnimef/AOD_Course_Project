@@ -12,6 +12,22 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->defaultFormat, SIGNAL(triggered()), this, SLOT(setDefaultFormat()));
     connect(ui->americanFormat, SIGNAL(triggered()), this, SLOT(setAmericanFormat()));
+
+    dialog = new QDialog(this);
+    dialog->setWindowTitle(tr("Изменить дату"));
+    ledit = new QLineEdit(dialog);
+
+    btn_box = new QDialogButtonBox(dialog);
+    btn_box->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+
+    connect(btn_box, &QDialogButtonBox::accepted, dialog, &QDialog::accept);
+    connect(btn_box, &QDialogButtonBox::rejected, dialog, &QDialog::reject);
+
+    layout = new QFormLayout();
+    layout->addRow(tr("Введите кол-во дней:"), ledit);
+    layout->addWidget(btn_box);
+
+    dialog->setLayout(layout);
 }
 
 MainWindow::~MainWindow()
@@ -19,6 +35,11 @@ MainWindow::~MainWindow()
     delete ui;
     delete date1;
     delete date2;
+
+    delete layout;
+    delete btn_box;
+    delete ledit;
+    delete dialog;
 }
 
 void MainWindow::setDefaultFormat()
@@ -57,11 +78,17 @@ void MainWindow::on_dateInput1_clicked()
     {
         ui->incrementDate1->setEnabled(true);
         ui->decrementDate1->setEnabled(true);
+
+        ui->increaseDate1->setEnabled(true);
+        ui->decreaseDate1->setEnabled(true);
     }
     else
     {
         ui->incrementDate1->setEnabled(false);
         ui->decrementDate1->setEnabled(false);
+
+        ui->increaseDate1->setEnabled(false);
+        ui->decreaseDate1->setEnabled(false);
     }
 }
 
@@ -83,11 +110,17 @@ void MainWindow::on_dateInput2_clicked()
     {
         ui->incrementDate2->setEnabled(true);
         ui->decrementDate2->setEnabled(true);
+
+        ui->increaseDate2->setEnabled(true);
+        ui->decreaseDate2->setEnabled(true);
     }
     else
     {
         ui->incrementDate2->setEnabled(false);
         ui->decrementDate2->setEnabled(false);
+
+        ui->increaseDate2->setEnabled(false);
+        ui->decreaseDate2->setEnabled(false);
     }
 }
 
@@ -129,23 +162,63 @@ void MainWindow::on_decrementDate2_clicked()
 
 void MainWindow::on_increaseDate1_clicked()
 {
-
+    if(dialog->exec() == QDialog::Accepted)
+    {
+        bool flag;
+        int num = ledit->text().toInt(&flag);
+        ledit->setText("");
+        if (flag)
+        {
+            date1->change(num);
+            showDate1();
+        }
+    }
 }
 
 
 void MainWindow::on_decreaseDate1_clicked()
 {
-
+    if(dialog->exec() == QDialog::Accepted)
+    {
+        bool flag;
+        int num = ledit->text().toInt(&flag);
+        ledit->setText("");
+        if (flag)
+        {
+            date1->change(-num);
+            showDate1();
+        }
+    }
 }
 
 
 void MainWindow::on_increaseDate2_clicked()
 {
-
+    if(dialog->exec() == QDialog::Accepted)
+    {
+        bool flag;
+        int num = ledit->text().toInt(&flag);
+        ledit->setText("");
+        if (flag)
+        {
+            date2->change(num);
+            showDate2();
+        }
+    }
 }
 
 
 void MainWindow::on_decreaseDate2_clicked()
 {
-
+    if(dialog->exec() == QDialog::Accepted)
+    {
+        bool flag;
+        int num = ledit->text().toInt(&flag);
+        ledit->setText("");
+        if (flag)
+        {
+            date2->change(-num);
+            showDate2();
+        }
+    }
 }

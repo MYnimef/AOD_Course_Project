@@ -110,6 +110,11 @@ void Date::decrement()
     correctDate(day - 1);
 }
 
+void Date::change(int numOfDays)
+{
+    correctDate(day + numOfDays);
+}
+
 void Date::getStrings(QString &dayStr, QString &monthStr, QString &yearStr)
 {
     dayStr = QString::number(day);

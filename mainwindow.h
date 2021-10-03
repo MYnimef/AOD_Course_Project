@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QDialog>
+#include <QLineEdit>
+#include <QDialogButtonBox>
+#include <QFormLayout>
 #include "date.h"
 
 QT_BEGIN_NAMESPACE
@@ -46,6 +50,11 @@ private:
     Date* date1;
     Date* date2;
     bool format;
+
+    QDialog* dialog;
+    QLineEdit* ledit;
+    QDialogButtonBox* btn_box;
+    QFormLayout* layout;
 
     void showDate1();
     void showDate2();

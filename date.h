@@ -17,6 +17,7 @@ private:
     void correctDate(int correction);
     void getStrings(QString &dayStr, QString &monthStr, QString &yearStr);
     bool checkCorrection(int &correct, int amountOfDays, int amountOfDaysOld);
+
 public:
     Date();
     Date(QString date);
@@ -27,6 +28,7 @@ public:
     bool getIsDate();
     void increment();
     void decrement();
+    void change(int numOfDays);
 };
 
 #endif
