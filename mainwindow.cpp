@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete date1;
+    delete date2;
 }
 
 

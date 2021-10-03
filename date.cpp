@@ -15,26 +15,22 @@ void Date::buildDate(QString str)
     this->isDate = true;
 
     int index = findSymb(str, 0);
-    this->dayStr = str.left(index);
-    this->day = this->dayStr.toShort(&isDate);
+    QString dayStr = str.left(index);
+    this->day = dayStr.toShort(&isDate);
 
     index++;
     int index2 = findSymb(str, index);
-    this->monthStr = str.mid(index, index2 - index);
-    this->month = this->monthStr.toShort(&isDate);
+    QString monthStr = str.mid(index, index2 - index);
+    this->month = monthStr.toShort(&isDate);
 
-    this->yearStr = str.right(str.length() - index2 - 1);
-    if (this->yearStr.length() == 2)
-    {
-        this->yearStr = "20" + yearStr;
-    }
-    this->year = this->yearStr.toShort(&isDate);
+    QString yearStr = str.right(str.length() - index2 - 1);
+    this->year = yearStr.toShort(&isDate);
+    if (this->year < 100)
+        year += 2000;
 
     this->isDate = checkDate();
     if (isDate)
-    {
         setDayOfWeek();
-    }
 }
 
 void Date:: setDayOfWeek()
@@ -51,13 +47,11 @@ void Date:: setDayOfWeek()
 
 bool Date::checkDate()
 {
-    short februaryDays = year % 4 ? 29 : 28;
+    short februaryDays = year % 4 == 0 ? 29 : 28;
     short monthDays[] = {31, februaryDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    if (day <= monthDays[month] && day > 0)
-    {
+    if (day <= monthDays[month - 1] && day > 0)
         return true;
-    }
     return false;
 }
 
@@ -68,38 +62,36 @@ int Date::findSymb(QString str, short pos)
     int index3 = str.indexOf(' ', pos);
     int index4 = str.indexOf('-', pos);
 
-    if (index1 != -1) {
+    if (index1 != -1)
         return index1;
-    }
-    else if (index2 != -1) {
+    else if (index2 != -1)
         return index2;
-    }
-    else if (index3 != -1) {
+    else if (index3 != -1)
         return index3;
-    }
-    else if (index4 != -1) {
+    else if (index4 != -1)
         return index4;
-    }
 
-    return -1;
     this->isDate = false;
+    return -1;
 }
 
 QString Date::toDefaultString()
 {
+    QString dayStr, monthStr, yearStr;
+    getStrings(dayStr, monthStr, yearStr);
+
     if (isDate)
-    {
         return dayStr + "." + monthStr + "." + yearStr + ", " + dayOfWeek;
-    }
     return "Wrong date format!";
 }
 
 QString Date::toAmericanString()
 {
+    QString dayStr, monthStr, yearStr;
+    getStrings(dayStr, monthStr, yearStr);
+
     if (isDate)
-    {
         return monthStr + "." + dayStr + "." + yearStr + ", " + dayOfWeek;
-    }
     return "Wrong date format!";
 }
 
@@ -111,102 +103,75 @@ bool Date::getIsDate()
 void Date::increment()
 {
     correctDate(day + 1);
-    updateStrings();
 }
 
 void Date::decrement()
 {
     correctDate(day - 1);
-    updateStrings();
 }
 
-void Date::updateStrings()
+void Date::getStrings(QString &dayStr, QString &monthStr, QString &yearStr)
 {
     dayStr = QString::number(day);
     if (dayStr.length() < 2)
-    {
         dayStr = "0" + dayStr;
-    }
+
     monthStr = QString::number(month);
     if (monthStr.length() < 2)
-    {
         monthStr = "0" + monthStr;
-    }
+
     yearStr = QString::number(year);
-    if (yearStr.length() < 2)
-    {
+    if (yearStr.length() < 4)
         yearStr = "0" + yearStr;
-    }
+
     setDayOfWeek();
 }
 
 void Date::correctDate(int correction)
 {
-    switch(month) {
-    case 1:
+    short februaryDays = year % 4 == 0 ? 29 : 28;
+    short monthDays[] = {31, februaryDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    if (month == 1)
+    {
         if (correction <= 31 && correction > 0) {
             day = correction;
-            break;
+            return;
         }
         else if (correction > 31)
         {
             month++;
             correction -= 31;
         }
-        else if (correction <= 0)
+        else
         {
             year--;
             month += 11;
             correctDate(correction + 31);
-            break;
+            return;
         }
-    case 2:
-        if (checkCorrection(correction, year % 4 == 0 ? 29 : 28, 31))
-            break;
-    case 3:
-        if (checkCorrection(correction, 31, year % 4 == 0 ? 29 : 28))
-            break;
-    case 4:
-        if (checkCorrection(correction, 30, 31))
-            break;
-    case 5:
-        if (checkCorrection(correction, 31, 30))
-            break;
-    case 6:
-        if (checkCorrection(correction, 30, 31))
-            break;
-    case 7:
-        if (checkCorrection(correction, 31, 30))
-            break;
-    case 8:
-        if (checkCorrection(correction, 31, 31))
-            break;
-    case 9:
-        if (checkCorrection(correction, 30, 31))
-            break;
-    case 10:
-        if (checkCorrection(correction, 31, 30))
-            break;
-    case 11:
-        if (checkCorrection(correction, 30, 31))
-            break;
-    case 12:
+    }
+
+    for (int i = 2; i <= 11; i++)
+        if (i == month)
+            if (checkCorrection(correction, monthDays[i - 1], monthDays[i - 2]))
+                return;
+
+    if (month == 12)
+    {
         if (correction <= 31 && correction > 0) {
             day = correction;
-            break;
         }
         else if (correction > 31)
         {
             year++;
             month = 1;
             correctDate(correction - 31);
-            break;
         }
-        else if (correction <= 0)
+        else
         {
             month--;
             correctDate(correction + 30);
-            break;
         }
     }
 }

@@ -10,14 +10,13 @@ private:
     short day;
     short month;
     short year;
-    QString dayStr;
-    QString monthStr;
-    QString yearStr;
     QString dayOfWeek;
 
     int findSymb(QString str, short pos);
     bool checkDate();
     void correctDate(int correction);
+    void getStrings(QString &dayStr, QString &monthStr, QString &yearStr);
+    bool checkCorrection(int &correct, int amountOfDays, int amountOfDaysOld);
 public:
     Date();
     Date(QString date);
@@ -28,8 +27,6 @@ public:
     bool getIsDate();
     void increment();
     void decrement();
-    void updateStrings();
-    bool checkCorrection(int &correct, int amountOfDays, int amountOfDaysOld);
 };
 
 #endif
