@@ -47,7 +47,7 @@ void Date:: setDayOfWeek()
 
 bool Date::checkDate()
 {
-    short februaryDays = year % 4 == 0 ? 29 : 28;
+    short februaryDays = (year % 4 == 0 && ((year % 100 == 0 && year % 400 == 0) || year % 100 != 0)) ? 29 : 28;
     short monthDays[] = {31, februaryDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     if (year > 0)
@@ -136,7 +136,7 @@ void Date::getStrings(QString &dayStr, QString &monthStr, QString &yearStr)
 
 void Date::correctDate(int correction)
 {
-    short februaryDays = year % 4 == 0 ? 29 : 28;
+    short februaryDays = (year % 4 == 0 && ((year % 100 == 0 && year % 400 == 0) || year % 100 != 0)) ? 29 : 28;
     short monthDays[] = {31, februaryDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     if (month == 1)
