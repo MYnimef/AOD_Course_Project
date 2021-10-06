@@ -1,17 +1,14 @@
 #include "date.h"
 
-Date::Date()
-{
+Date::Date() {
     this->isDate = false;
 }
 
-Date::Date(QString str)
-{
+Date::Date(QString str) {
     buildDate(str);
 }
 
-void Date::buildDate(QString str)
-{
+void Date::buildDate(QString str) {
     this->isDate = true;
 
     int index = findSymb(str, 0);
@@ -33,8 +30,7 @@ void Date::buildDate(QString str)
         setDayOfWeek();
 }
 
-void Date:: setDayOfWeek()
-{
+void Date:: setDayOfWeek() {
     QString week[] = {"Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"};
 
     short a = (14 - month) / 12;
@@ -45,8 +41,7 @@ void Date:: setDayOfWeek()
     this->dayOfWeek = week[num];
 }
 
-bool Date::checkDate()
-{
+bool Date::checkDate() {
     short februaryDays = (year % 4 == 0 && ((year % 100 == 0 && year % 400 == 0) || year % 100 != 0)) ? 29 : 28;
     short monthDays[] = {31, februaryDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
@@ -57,8 +52,7 @@ bool Date::checkDate()
     return false;
 }
 
-int Date::findSymb(QString str, short pos)
-{
+int Date::findSymb(QString str, short pos) {
     int index1 = str.indexOf('.', pos);
     int index2 = str.indexOf('/', pos);
     int index3 = str.indexOf(' ', pos);
@@ -77,8 +71,7 @@ int Date::findSymb(QString str, short pos)
     return -1;
 }
 
-QString Date::toDefaultString()
-{
+QString Date::toDefaultString() {
     QString dayStr, monthStr, yearStr;
     getStrings(dayStr, monthStr, yearStr);
 
@@ -87,8 +80,7 @@ QString Date::toDefaultString()
     return "Wrong date format!";
 }
 
-QString Date::toAmericanString()
-{
+QString Date::toAmericanString() {
     QString dayStr, monthStr, yearStr;
     getStrings(dayStr, monthStr, yearStr);
 
@@ -97,28 +89,23 @@ QString Date::toAmericanString()
     return "Wrong date format!";
 }
 
-bool Date::getIsDate()
-{
+bool Date::getIsDate() {
     return isDate;
 }
 
-void Date::increment()
-{
+void Date::increment() {
     correctDate(day + 1);
 }
 
-void Date::decrement()
-{
+void Date::decrement() {
     correctDate(day - 1);
 }
 
-void Date::change(int numOfDays)
-{
+void Date::change(int numOfDays) {
     correctDate(day + numOfDays);
 }
 
-void Date::getStrings(QString &dayStr, QString &monthStr, QString &yearStr)
-{
+void Date::getStrings(QString &dayStr, QString &monthStr, QString &yearStr) {
     dayStr = QString::number(day);
     if (dayStr.length() < 2)
         dayStr = "0" + dayStr;
@@ -134,24 +121,18 @@ void Date::getStrings(QString &dayStr, QString &monthStr, QString &yearStr)
     setDayOfWeek();
 }
 
-void Date::correctDate(int correction)
-{
+void Date::correctDate(int correction) {
     short februaryDays = (year % 4 == 0 && ((year % 100 == 0 && year % 400 == 0) || year % 100 != 0)) ? 29 : 28;
     short monthDays[] = {31, februaryDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    if (month == 1)
-    {
+    if (month == 1) {
         if (correction <= 31 && correction > 0) {
             day = correction;
             return;
-        }
-        else if (correction > 31)
-        {
+        } else if (correction > 31) {
             month++;
             correction -= 31;
-        }
-        else
-        {
+        } else {
             year--;
             month += 11;
             correctDate(correction + 31);
@@ -164,71 +145,57 @@ void Date::correctDate(int correction)
             if (checkCorrection(correction, monthDays[i - 1], monthDays[i - 2]))
                 return;
 
-    if (month == 12)
-    {
+    if (month == 12) {
         if (correction <= 31 && correction > 0) {
             day = correction;
-        }
-        else if (correction > 31)
-        {
+        } else if (correction > 31) {
             year++;
             month = 1;
             correctDate(correction - 31);
-        }
-        else
-        {
+        } else {
             month--;
             correctDate(correction + 30);
         }
     }
 }
 
-bool Date::checkCorrection(int &correct, int amountOfDays, int amountOfDaysOld)
-{
+bool Date::checkCorrection(int &correct, int amountOfDays, int amountOfDaysOld) {
     if (correct <= amountOfDays && correct > 0) {
         day = correct;
         return true;
-    }
-    else if (correct > amountOfDays)
-    {
+    } else if (correct > amountOfDays) {
         month++;
         correct -= amountOfDays;
         return false;
-    }
-    else
-    {
+    } else {
         month--;
         correctDate(correct + amountOfDaysOld);
         return true;
     }
 }
 
-short Date::getDay()
-{
+short Date::getDay() {
     if (isDate)
         return day;
     else
         return -1;
 }
 
-short Date::getMonth()
-{
+short Date::getMonth() {
     if (isDate)
         return month;
     else
         return -1;
 }
 
-short Date::getYear()
-{
+short Date::getYear() {
     if (isDate)
         return year;
     else
         return -1;
 }
 
-QString Date::dayDifference(Date date)
-{
+QString Date::dayDifference(Date date) {
     QString numStr = QString::number(abs(rdn() - date.rdn()));
     int length = numStr.length() - 1;
     QString word;
@@ -244,8 +211,7 @@ QString Date::dayDifference(Date date)
     return "Разница между двумя датами составляет " + numStr + word;
 }
 
-int Date::rdn()
-{
+int Date::rdn() {
     int d = day;
     int m = month;
     int y = year;

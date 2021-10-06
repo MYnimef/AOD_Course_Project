@@ -3,8 +3,7 @@
 
 #include <QString>
 
-class Date
-{
+class Date {
 private:
     bool isDate;
     short day;

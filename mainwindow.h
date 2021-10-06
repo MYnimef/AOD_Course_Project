@@ -41,9 +41,9 @@ private slots:
 
     void on_decreaseDate2_clicked();
 
-    void setDefaultFormat();
+    void on_defaultFormat_triggered();
 
-    void setAmericanFormat();
+    void on_americanFormat_triggered();
 
 private:
     Ui::MainWindow *ui;
