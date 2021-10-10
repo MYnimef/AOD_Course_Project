@@ -85,7 +85,7 @@ QString Date::toAmericanString() {
     getStrings(dayStr, monthStr, yearStr);
 
     if (isDate)
-        return monthStr + "." + dayStr + "." + yearStr + ", " + dayOfWeek;
+        return monthStr + "/" + dayStr + "/" + yearStr + ", " + dayOfWeek;
     return "Wrong date format!";
 }
 

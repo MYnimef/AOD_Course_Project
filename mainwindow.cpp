@@ -59,8 +59,10 @@ void MainWindow::showDate1() {
         ui->dateLabel1->setText(date1->toDefaultString());
     else
         ui->dateLabel1->setText(date1->toAmericanString());
-    if (date2->getIsDate())
+    if (date1->getIsDate() && date2->getIsDate())
         ui->dateDifference->setText(date1->dayDifference(*date2));
+    else
+        ui->dateDifference->setText("");
 }
 
 
@@ -88,8 +90,10 @@ void MainWindow::showDate2() {
         ui->dateLabel2->setText(date2->toDefaultString());
     else
         ui->dateLabel2->setText(date2->toAmericanString());
-    if (date1->getIsDate())
+    if (date1->getIsDate() && date2->getIsDate())
         ui->dateDifference->setText(date2->dayDifference(*date1));
+    else
+        ui->dateDifference->setText("");
 }
 
 void MainWindow::on_incrementDate1_clicked() {
