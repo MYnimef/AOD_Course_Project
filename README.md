@@ -21,3 +21,13 @@
 •	подсчет количества дней между двумя датами;
 
 •	вычисление дня недели по дате (например, для даты 12.02.2012 день недели воскресенье).
+
+![kurs1](https://user-images.githubusercontent.com/73215129/136708899-64d42b95-d503-4ae8-be52-de79cac957d6.png)
+
+![kurs2](https://user-images.githubusercontent.com/73215129/136708904-e97b5d69-e244-432a-be3c-ba523d52746f.png)
+
+![kurs3](https://user-images.githubusercontent.com/73215129/136708907-012e6f44-45ab-4746-b327-6d8bde23340a.png)
+
+![kurs4](https://user-images.githubusercontent.com/73215129/136708909-0b8de539-2815-4f6f-8182-3a1e764369a8.png)
+
+![kurs5](https://user-images.githubusercontent.com/73215129/136708911-8fc4e4ca-bd0d-45c9-ac26-67be0ea9013c.png)
